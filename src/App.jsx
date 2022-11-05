@@ -1,13 +1,15 @@
-import { Center, Heading } from '@chakra-ui/react';
-import { ToDoList } from './components/TodoList';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HomePage } from './pages/home';
+import { LoginPage } from './pages/login';
 
 function App() {
   return (
-    <Center h="100vh" flexDirection="column">
-      <Heading mb={6}>Lista de tarefas</Heading>
-
-      <ToDoList />
-    </Center>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
