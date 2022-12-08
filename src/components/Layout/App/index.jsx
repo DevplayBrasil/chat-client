@@ -47,7 +47,7 @@ export function AppLayout() {
               // <Text>asdsa</Text>
               <Menu>
                 <MenuButton as={Button} rightIcon={<FiChevronDown />}>
-                  {user.name}
+                  Menu
                 </MenuButton>
                 <MenuList>
                   <Flex px={4} gap={2} alignItems="center">
