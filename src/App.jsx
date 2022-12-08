@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { HomePage } from './pages/home';
+import { ChatPage } from './pages/chat';
 import { LoginPage } from './pages/login';
 import { NotFoundPage } from './pages/404';
 import { RegisterPage } from './pages/register';
@@ -9,6 +9,7 @@ import { AuthContextProvider } from './contexts/AuthContext';
 import { AppLayout } from './components/Layout/App';
 import { ForgetPasswordPage } from './pages/password/forget';
 import { ResetPasswordPage } from './pages/password/reset';
+import { ProfilePage } from './pages/profile';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<ChatPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Route>
 
           <Route element={<LoginLayout />}>

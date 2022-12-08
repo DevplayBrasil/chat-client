@@ -1,41 +1,63 @@
 import {
-  Box,
+  Avatar,
   Button,
   Container,
   Flex,
+  IconButton,
   Image,
   Menu,
   MenuButton,
+  MenuDivider,
   MenuItem,
   MenuList,
+  Skeleton,
+  Text,
+  useColorMode,
 } from '@chakra-ui/react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import { PrivateRoute } from '../../Private';
-import { FiLogOut, FiUser } from 'react-icons/fi';
+import { FiLogOut, FiMoon, FiSun, FiChevronDown } from 'react-icons/fi';
+import { NAVBAR_HEIGHT } from '../../../data/config';
 
 export function AppLayout() {
   const { user, signOut } = useAuth();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <PrivateRoute>
-      <Box bg="gray.100" p={4}>
-        <Container maxW="container.xl">
-          <Flex justify="space-between">
-            <Image src="/logo.png" h={10} />
+      <Container maxW="container.xl">
+        {/* Navbar */}
+        <Flex
+          height={NAVBAR_HEIGHT}
+          justify="space-between"
+          alignItems="center"
+        >
+          <Image src="/logo.png" h={10} />
+
+          {/* Space */}
+
+          <Flex gap={2}>
+            <IconButton
+              onClick={toggleColorMode}
+              icon={colorMode === 'light' ? <FiMoon /> : <FiSun />}
+            />
 
             {user ? (
               // <Text>asdsa</Text>
               <Menu>
-                <MenuButton
-                  colorScheme="gray"
-                  as={Button}
-                  rightIcon={<FiUser />}
-                >
+                <MenuButton as={Button} rightIcon={<FiChevronDown />}>
                   {user.name}
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Editar dados</MenuItem>
+                  <Flex px={4} gap={2} alignItems="center">
+                    <Avatar src={user.avatar} size="sm" />
+                    <Text>{user.name}</Text>
+                  </Flex>
+                  <MenuDivider />
+                  <MenuItem as={Link} to="/profile">
+                    Editar dados
+                  </MenuItem>
                   <MenuItem
                     onClick={signOut}
                     display="flex"
@@ -46,13 +68,12 @@ export function AppLayout() {
                 </MenuList>
               </Menu>
             ) : (
-              <Button>Fazer login</Button>
+              <Skeleton />
             )}
           </Flex>
-        </Container>
-      </Box>
+        </Flex>
 
-      <Container maxW="container.xl">
+        {/* Conteúdo */}
         <Outlet />
       </Container>
     </PrivateRoute>
